@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>AURAK Teaching Assistant Timesheet</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+                background-color: #f9f9f9;
+            }
+    
+            header {
+                background-color: #800000;
+                color: white;
+                padding: 20px 0;
+                text-align: center;
+                font-size: 24px;
+                font-weight: bold;
+                text-transform: uppercase;
+            }
+    
+            .container {
+                width: 90%;
+                max-width: 800px;
+                margin: 20px auto;
+                background: white;
+                border-radius: 8px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+    
+            h2 {
+                color: #800000;
+                margin-bottom: 10px;
+            }
+    
+            form {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+    
+            form input, form button {
+                flex: 1 1 calc(33.333% - 10px);
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                font-size: 16px;
+            }
+    
+            form button {
+                background-color: #800000;
+                color: white;
+                border: none;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+    
+            form button:hover {
+                background-color: #660000;
+            }
+    
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-top: 20px;
+            }
+    
+            table th, table td {
+                padding: 10px;
+                text-align: left;
+                border: 1px solid #ddd;
+            }
+    
+            table th {
+                background-color: #800000;
+                color: white;
+            }
+    
+            table tr:nth-child(even) {
+                background-color: #f2f2f2;
+            }
+    
+            footer {
+                text-align: center;
+                padding: 10px;
+                background-color: #f1f1f1;
+                margin-top: 20px;
+                font-size: 14px;
+                color: #555;
+            }
+        </style>
+    </head>
+<body>
+    <h2>Timesheet Entry</h2>
+    <form method="POST">
+        <label>Date: <input type="date" name="date" required></label>
+        <label>Start Time: <input type="time" name="start_time" required></label>
+        <label>End Time: <input type="time" name="end_time" required></label>
+        <label>Description: <input type="text" name="description"></label>
+        <button type="submit">Add Entry</button>
+    </form>
+
+    <h2>Timesheet Records</h2>
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Hours Worked</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        {% for entry in entries %}
+        <tr>
+            <td>{{ entry.date }}</td>
+            <td>{{ entry.start_time }}</td>
+            <td>{{ entry.end_time }}</td>
+            <td>{{ entry.hours_worked }}</td>
+            <td>{{ entry.description }}</td>
+            <td><a href="{{ url_for('delete', id=entry.id) }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <footer>
+        &copy; 2025 American University of Ras Al Khaimah | Developed by Youssef Nasr
+    </footer>
+</body>
+</html>
